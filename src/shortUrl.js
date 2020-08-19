@@ -40,11 +40,11 @@ const genID = async () => {
 export const genShortUrl = async (url) => {
   countLimit = 0
 
-  if (!urlValid(url)) return { status: 'failure', message: 'url pattern is invalid', code: 400 }
+  if (!urlValid(url)) return { status: 'failure', response: 'URL pattern is invalid.', code: 400 }
 
   const id = await genID()
 
-  const result = (id === 'timeout') ? { status: 'failure', message: 'timeout', code: 500 } : await firestore()
+  const result = (id === 'timeout') ? { status: 'failure', response: 'Timeout! can\'t generate ID, Please try again later.', code: 500 } : await firestore()
     .collection('path')
     .doc(id)
     .set({
