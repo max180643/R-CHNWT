@@ -4,7 +4,8 @@
   "description": "R - CHNWT.DEV",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon -r @babel/register ./src/server.js"
+    "dev": "nodemon -r @babel/register ./src/server.js",
+    "start": "node -r @babel/register ./src/server.js"
   },
   "author": "Chanwit Settavongsin (max180643)",
   "license": "MIT",
