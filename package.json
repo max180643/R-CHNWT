@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
     "@babel/register": "^7.10.5",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
@@ -19,7 +20,6 @@
     "nanoid": "^3.1.12"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.11.0",
     "eslint-config-nss": "^1.0.2",
     "nodemon": "^2.0.4"
   }
