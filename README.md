@@ -35,6 +35,34 @@ This API is based on HTTPS / JSON requests and responses. `https://r.chnwt.dev`
 ```
 </details>
 
+### Create a shortened URL with custom alias
+
+##### API request
+`POST /url`
+<details>
+<summary>JSON</summary>
+
+```json
+{
+    "url": "[:fullURL]",
+    "customPath": "[:customPath]"
+}
+```
+</details>
+
+##### API response
+<details>
+<summary>JSON</summary>
+
+```json
+{
+    "status": "success",
+    "id": "[:customPath]",
+    "shortUrl": "https://r.chnwt.dev/[:customPath]",
+    "fullUrl": "[:fullURL]"
+}
+```
+</details>
 
 ### Shortened URL redirect
 

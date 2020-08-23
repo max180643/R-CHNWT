@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 app.post('/url', async (req, res) => {
   const {
     status, response, id, shortUrl, fullUrl, code,
-  } = await genShortUrl(req.body.url)
+  } = await genShortUrl(req.body)
   res.send({
     status,
     response,
