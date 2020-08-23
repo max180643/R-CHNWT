@@ -50,6 +50,8 @@ This API is based on HTTPS / JSON requests and responses. `https://r.chnwt.dev`
 ```
 </details>
 
+###### ** customPath only accept Alphabets, Numbers, Underscore, and Hyphen
+
 ##### API response
 <details>
 <summary>JSON</summary>
