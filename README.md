@@ -69,5 +69,19 @@ $ yarn start
 create .env file
 
 ```
-FIREBASE='{"apiKey": "","authDomain": "","databaseURL": "","projectId": "","storageBucket": "","messagingSenderId": "","appId": ""}'
+# My domain / IP address
+
+MY_URL=''
+
+# Firebase Config
+
+FIREBASE_COLLECTION_NAME=''
+
+FIREBASE_API_KEY=''
+
+FIREBASE_APP_ID=''
+
+FIREBASE_PROJECT_ID=''
+
+FIREBASE_DATABASE_URL=''
 ```

@@ -1,22 +1,16 @@
 import { nanoid } from 'nanoid'
 
+import './lib/firebase'
+
 import { firestore } from 'firebase/app'
 
 require('dotenv').config()
 
-require('firebase/firestore')
-
-const firebase = require('firebase/app')
-
-const config = process.env.FIREBASE
-
-const shortUrl = 'shortUrl'
+const collectionName = process.env.FIREBASE_COLLECTION_NAME
 
 const maxLimit = 4
 
 let countLimit = 0
-
-firebase.initializeApp(JSON.parse(config))
 
 const urlValid = (url) => {
   const pattern = new RegExp('^(https?:\\/\\/)?'
@@ -44,8 +38,22 @@ export const genShortUrl = async (url) => {
 
   const id = await genID()
 
+  const myUrl = process.env.MY_URL
+
+  let shortUrl
+
+  if ((myUrl.includes('https://') && myUrl.slice(-1) === '/') || (myUrl.includes('http://') && myUrl.slice(-1) === '/')) {
+    shortUrl = `${myUrl}${id}`
+  } else if ((myUrl.includes('https://') && myUrl.slice(-1) !== '/') || (myUrl.includes('http://') && myUrl.slice(-1) !== '/')) {
+    shortUrl = `${myUrl}/${id}`
+  } else if ((!myUrl.includes('https://') && myUrl.slice(-1) === '/') || (!myUrl.includes('http://') && myUrl.slice(-1) === '/')) {
+    shortUrl = `http://${myUrl}${id}`
+  } else if ((!myUrl.includes('https://') && myUrl.slice(-1) !== '/') || (!myUrl.includes('http://') && myUrl.slice(-1) !== '/')) {
+    shortUrl = `http://${myUrl}/${id}`
+  }
+
   const result = (id === 'timeout') ? { status: 'failure', response: 'Timeout! can\'t generate ID, Please try again later.', code: 500 } : await firestore()
-    .collection('path')
+    .collection(collectionName)
     .doc(id)
     .set({
       fullUrl: url,
@@ -54,7 +62,7 @@ export const genShortUrl = async (url) => {
     .then(() => ({
       status: 'success',
       id,
-      shortUrl: `https://r.chnwt.dev/${id}`,
+      shortUrl,
       fullUrl: url,
       code: 201,
     }))
@@ -63,9 +71,7 @@ export const genShortUrl = async (url) => {
 }
 
 export const getFullUrl = async (id) => {
-  const result = await firestore().collection('path').doc(id).get()
+  const result = await firestore().collection(collectionName).doc(id).get()
     .then(doc => ((doc.data() === undefined) ? 'notFound' : doc.data().fullUrl))
   return result
 }
-
-export default shortUrl
