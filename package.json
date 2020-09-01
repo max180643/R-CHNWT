@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon -r @babel/register ./src/server.js",
-    "start": "node -r @babel/register ./src/server.js"
+    "start": "(cd view && npm run build) & node -r @babel/register ./src/server.js"
   },
   "author": "Chanwit Settavongsin (max180643)",
   "license": "MIT",
@@ -18,7 +18,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "firebase": "^7.18.0",
-    "nanoid": "^3.1.12"
+    "nanoid": "^3.1.12",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "eslint-config-nss": "^1.0.2",

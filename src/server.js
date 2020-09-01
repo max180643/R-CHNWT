@@ -6,21 +6,23 @@ const bodyParser = require('body-parser')
 
 const cors = require('cors')
 
+const path = require('path')
+
 const app = express()
 
 const port = process.env.PORT || 5555
+
+const staticPath = path.join(__dirname, '../view/build/')
 
 app.use(bodyParser.json())
 
 app.use(cors())
 
-app.get('/', (req, res) => {
-  res.send({
-    status: 'success',
-    response: 'Please go to https://github.com/max180643/R-CHNWT for API usage.',
-  },
-  200)
-})
+app.use('/', express.static(staticPath))
+
+app.get('/', function(req, res) {
+  res.sendFile(path.join(staticPath, 'index.html'));
+});
 
 app.post('/url', async (req, res) => {
   const {
