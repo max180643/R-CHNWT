@@ -39,6 +39,7 @@ const styles = {
     paddingBottom: 0,
     paddingLeft: '1em',
     paddingRight: '1em',
+    wordWrap: 'break-word',
   },
 }
 
@@ -71,31 +72,34 @@ const ShortenLinkItem = (LinkData) => (
 
 const ShortenLink = () => {
   const data = useRecoilValue(ShortenLinkData)
-  return (
-    <Row>
-      <Col
-        xs={{ span: 24 }}
-        sm={{ span: 20, offset: 2 }}
-        md={{ span: 18, offset: 3 }}
-        lg={{ span: 16, offset: 4 }}
-        xl={{ span: 14, offset: 5 }}
-        xxl={{ span: 12, offset: 6 }}
-        style={styles.titleText}
-      >
-        <span style={styles.clDarkGray}>Your shortened URL</span>
-      </Col>
-      <Col
-        xs={{ span: 24 }}
-        sm={{ span: 20, offset: 2 }}
-        md={{ span: 18, offset: 3 }}
-        lg={{ span: 16, offset: 4 }}
-        xl={{ span: 14, offset: 5 }}
-        xxl={{ span: 12, offset: 6 }}
-      >
-        <ShortenLinkItem data={data} />
-      </Col>
-    </Row>
-  )
+  if (data.length > 0) {
+    return (
+      <Row>
+        <Col
+          xs={{ span: 24 }}
+          sm={{ span: 20, offset: 2 }}
+          md={{ span: 18, offset: 3 }}
+          lg={{ span: 16, offset: 4 }}
+          xl={{ span: 14, offset: 5 }}
+          xxl={{ span: 12, offset: 6 }}
+          style={styles.titleText}
+        >
+          <span style={styles.clDarkGray}>Your shortened URL</span>
+        </Col>
+        <Col
+          xs={{ span: 24 }}
+          sm={{ span: 20, offset: 2 }}
+          md={{ span: 18, offset: 3 }}
+          lg={{ span: 16, offset: 4 }}
+          xl={{ span: 14, offset: 5 }}
+          xxl={{ span: 12, offset: 6 }}
+        >
+          <ShortenLinkItem data={data} />
+        </Col>
+      </Row>
+    )
+  }
+  return null
 }
 
 export default ShortenLink

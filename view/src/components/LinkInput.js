@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {
-  Row, Col, Input, Button, notification, Spin
+  Row, Col, Input, Button, notification, Spin,
 } from 'antd'
 
 import { LinkOutlined, LoadingOutlined } from '@ant-design/icons'
@@ -79,16 +79,28 @@ const LinkInput = () => {
     ])
   }
 
+  const errorNotification = (data) => {
+    notification.error({
+      message: data.status.charAt(0).toUpperCase() + data.status.slice(1) || 'Error',
+      description: data.response || 'Something went wrong.',
+      duration: 4,
+      placement: 'bottomRight',
+      style: {
+        width: 280,
+      },
+    })
+  }
+
   const fetchAPI = async () => {
     await axios
       .post('/url', {
-        "url": pathInput
+        url: pathInput,
       })
-      .then((res) => { 
-        updateShortenLinkData([res.data]) 
+      .then((res) => {
+        updateShortenLinkData([res.data])
         setPathInput('')
       })
-      .catch((error) => { 
+      .catch((error) => {
         errorNotification(error.response.data)
         setPathInput('')
       })
@@ -102,24 +114,12 @@ const LinkInput = () => {
     } else if (pathInput === '' && fetching !== true) {
       errorNotification({
         status: 'Error',
-        response: 'Please enter URL to create.'
+        response: 'Please enter URL to create.',
       })
     }
   }
 
-  const errorNotification = (data) => {
-    notification.error({
-      message: data.status.charAt(0).toUpperCase() + data.status.slice(1) || 'Error',
-      description: data.response || 'Something went wrong.',
-      duration: 4,
-      placement: 'bottomRight',
-      style: {
-        width: 280,
-      },
-    })
-  }
-
-  const Loading = <LoadingOutlined style={{ color: "white" }} spin />;
+  const Loading = <LoadingOutlined style={{ color: 'white' }} spin />
 
   return (
     <Row>
@@ -161,9 +161,17 @@ const LinkInput = () => {
             xl={{ span: 6 }}
             xxl={{ span: 4 }}
           >
-            <Button onClick={onClickButton} type="primary" size="large" style={
+            <Button
+              onClick={onClickButton}
+              type="primary"
+              size="large"
+              style={
               (windowSize.width < 576 && hover) ? styles.orangeBlockButtonHover : (windowSize.width > 576 && hover) ? styles.orangeButtonHover : (windowSize.width < 576) ? styles.orangeBlockButton : styles.orangeButton
-              } onMouseEnter={toggleHover} onMouseLeave={toggleHover} block>
+              }
+              onMouseEnter={toggleHover}
+              onMouseLeave={toggleHover}
+              block
+            >
               { !fetching ? 'Shorten URL' : <Spin indicator={Loading} /> }
             </Button>
           </Col>
