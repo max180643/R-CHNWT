@@ -7,6 +7,7 @@ import './App.css'
 import Logo from '../components/Logo'
 import LinkInput from '../components/LinkInput'
 import ShortenLink from '../components/ShortenLink'
+import Optional from '../components/Optional'
 
 const styles = {
   container: {
@@ -22,6 +23,7 @@ const App = () => (
         <Col span={24}>
           <Logo />
           <LinkInput />
+          <Optional />
           <ShortenLink />
         </Col>
       </Row>

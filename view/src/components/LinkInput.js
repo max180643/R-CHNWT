@@ -6,7 +6,7 @@ import {
 import { LinkOutlined, LoadingOutlined } from '@ant-design/icons'
 import { useRecoilState } from 'recoil'
 
-import { ShortenLink } from '../states/atom'
+import { ShortenLink, OptionalToggle, CustomAlias } from '../states/atom'
 
 const styles = {
   clOrange: {
@@ -73,15 +73,21 @@ const LinkInput = () => {
   const [ShortenLinkData, setShortenLinkData] = useRecoilState(ShortenLink)
 
   const updateShortenLinkData = (data) => {
-    setShortenLinkData(() => [
-      ...ShortenLinkData,
-      ...data,
-    ])
+    setShortenLinkData(() => [...ShortenLinkData, ...data])
   }
+
+  const [OptionalToggleData, setOptionalToggleData] = useRecoilState(
+    OptionalToggle,
+  )
+
+  const [CustomAliasData, setCustomAliasData] = useRecoilState(
+    CustomAlias,
+  )
 
   const errorNotification = (data) => {
     notification.error({
-      message: data.status.charAt(0).toUpperCase() + data.status.slice(1) || 'Error',
+      message:
+        data.status.charAt(0).toUpperCase() + data.status.slice(1) || 'Error',
       description: data.response || 'Something went wrong.',
       duration: 4,
       placement: 'bottomRight',
@@ -95,14 +101,19 @@ const LinkInput = () => {
     await axios
       .post('/url', {
         url: pathInput,
+        customPath: CustomAliasData,
       })
       .then((res) => {
         updateShortenLinkData([res.data])
         setPathInput('')
+        setOptionalToggleData(false)
+        setCustomAliasData(null)
       })
       .catch((error) => {
         errorNotification(error.response.data)
         setPathInput('')
+        setOptionalToggleData(false)
+        setCustomAliasData(null)
       })
     setFetching(false)
   }
@@ -142,7 +153,7 @@ const LinkInput = () => {
         xxl={{ span: 12, offset: 6 }}
         style={{ marginTop: '0.3rem' }}
       >
-        <Row gutter={8} style={styles.fixFont}>
+        <Row gutter={8}>
           <Col
             xs={{ span: 24 }}
             sm={{ span: 16 }}
@@ -151,7 +162,13 @@ const LinkInput = () => {
             xl={{ span: 18 }}
             xxl={{ span: 20 }}
           >
-            <Input size="large" placeholder="https://www.example.com/" prefix={<LinkOutlined />} value={pathInput} onChange={updatePathInput} />
+            <Input
+              size="large"
+              placeholder="https://www.example.com/"
+              prefix={<LinkOutlined />}
+              value={pathInput}
+              onChange={updatePathInput}
+            />
           </Col>
           <Col
             xs={{ span: 24 }}
@@ -166,13 +183,19 @@ const LinkInput = () => {
               type="primary"
               size="large"
               style={
-              (windowSize.width < 576 && hover) ? styles.orangeBlockButtonHover : (windowSize.width > 576 && hover) ? styles.orangeButtonHover : (windowSize.width < 576) ? styles.orangeBlockButton : styles.orangeButton
+                windowSize.width < 576 && hover
+                  ? styles.orangeBlockButtonHover
+                  : windowSize.width > 576 && hover
+                    ? styles.orangeButtonHover
+                    : windowSize.width < 576
+                      ? styles.orangeBlockButton
+                      : styles.orangeButton
               }
               onMouseEnter={toggleHover}
               onMouseLeave={toggleHover}
               block
             >
-              { !fetching ? 'Shorten URL' : <Spin indicator={Loading} /> }
+              {!fetching ? 'Shorten URL' : <Spin indicator={Loading} />}
             </Button>
           </Col>
         </Row>
