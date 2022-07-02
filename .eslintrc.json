@@ -1,0 +1,6 @@
+{
+  "extends": ["next/core-web-vitals", "airbnb", "prettier"],
+  "rules": {
+    "prefer-const": "error"
+  }
+}

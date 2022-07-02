@@ -1,117 +1,34 @@
-R - CHNWT
-=========
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-R - CHNWT is a URL shortener to reduce a long link.
+## Getting Started
 
-API
----
-This API is based on HTTPS / JSON requests and responses. `https://r.chnwt.dev`
+First, run the development server:
 
-### Create a shortened URL
-
-##### API request
-`POST /url`
-<details>
-<summary>JSON</summary>
-
-```json
-{
-    "url": "[:fullURL]"
-}
-```
-</details>
-
-##### API response
-<details>
-<summary>JSON</summary>
-
-```json
-{
-    "status": "success",
-    "id": "[:id]",
-    "shortUrl": "https://r.chnwt.dev/[:id]",
-    "fullUrl": "[:fullURL]"
-}
-```
-</details>
-
-### Create a shortened URL with custom alias
-
-##### API request
-`POST /url`
-<details>
-<summary>JSON</summary>
-
-```json
-{
-    "url": "[:fullURL]",
-    "customPath": "[:customPath]"
-}
-```
-</details>
-
-###### ** customPath only accept Alphabets, Numbers, Underscore, and Hyphen
-
-##### API response
-<details>
-<summary>JSON</summary>
-
-```json
-{
-    "status": "success",
-    "id": "[:customPath]",
-    "shortUrl": "https://r.chnwt.dev/[:customPath]",
-    "fullUrl": "[:fullURL]"
-}
-```
-</details>
-
-### Shortened URL redirect
-
-##### HTTPS request
-`GET /[:id]`
-
-##### HTTPS response
-`Redirect to full URL`
-
-_____
-
-## Requirements
-
-- Node LTS
-
-## Installation
-
-```sh
-$ npm install
-$ npm run start
+```bash
+npm run dev
+# or
+yarn dev
 ```
 
-or
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```sh
-$ yarn
-$ yarn start
-```
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-## Config
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-create .env file
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-```
-# My domain / IP address
+## Learn More
 
-MY_URL=''
+To learn more about Next.js, take a look at the following resources:
 
-# Firebase Config
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-FIREBASE_COLLECTION_NAME=''
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-FIREBASE_API_KEY=''
+## Deploy on Vercel
 
-FIREBASE_APP_ID=''
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-FIREBASE_PROJECT_ID=''
-
-FIREBASE_DATABASE_URL=''
-```
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

@@ -1,6 +1,0 @@
-{
-    "extends": "nss/node",
-    "rules": {
-        "no-console": 0
-    }
-}
